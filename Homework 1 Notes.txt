@@ -1,0 +1,19 @@
+CREATE TABLE Taverns (
+
+);
+
+CREATE TABLE Supplies (
+
+);
+
+CREATE TABLE Services(
+
+);
+
+CREATE TABLE Sales(
+
+);
+
+CREATE TABLE Status(
+
+);
