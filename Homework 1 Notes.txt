@@ -3,7 +3,10 @@ CREATE TABLE Taverns (
 );
 
 CREATE TABLE Supplies (
-
+supply_name VARCHAR(50),
+unit VARCHAR(20),
+count INTEGER,
+	
 );
 
 CREATE TABLE Services(
