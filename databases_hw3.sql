@@ -21,7 +21,7 @@
 --ALTER TABLE DBBootCamp.Users ADD FOREIGN KEY (Name) REFERENCES DBBootCamp.Ledger(guest_name);
 
 --New alter ran in seperate Query to add Column class_name to Class
---ALTER TABLE DBBootCamp.Class ADD class_name VARCHAR(250);
+
 
 
 INSERT INTO DBBootCamp.TavernServices(service_name, price) VALUES ('Weapon Sharpening', 50), ('Weapon Sharpening', 100), ('Pencil Pushing', 250), ('Beds', 10), ('Darts', 1000);
@@ -53,15 +53,11 @@ SELECT * FROM DBBootCamp.Ledger ORDER BY Ledger.guest_name ASC;
 SELECT TOP(10) sales FROM DBBootCamp.Taverns ORDER BY sales DESC;
 
 --7.
---SELECT * FROM DBBootCamp.GuestStatus 
---UNION 
---SELECT * FROM DBBootCamp.TavernStatus
---UNION
---SELECT * FROM DBBootCamp.Supplies
---UNION
---SELECT * FROM DBBootCamp.Users
---UNION
---SELECT * FROM DBBootCamp.Rooms;
+SELECT * FROM DBBootCamp.GuestStatus 
+UNION 
+SELECT * FROM DBBootCamp.TavernStatus
+UNION
+SELECT * FROM DBBootCamp.Users
 
 --8.
 SELECT Ledger.guest_level, Class.class_name,  CASE 
