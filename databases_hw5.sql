@@ -64,12 +64,12 @@ RETURNS TABLE
 AS
 RETURN
 (
-SELECT t.Name Tavern, t.Id Tavern_Id, r.Name, rs.name Status, s.Rate, s.Date FROM Taverns.Rooms r 
+
+SELECT t.Name Tavern, t.Id Tavern_Id, r.Name, rs.name Status, r.Price FROM Taverns.Rooms r
 JOIN Taverns.RoomStatuses rs ON r.StatusId = rs.Id 
-JOIN Taverns.Stays s ON r.Id = s.RoomId
 JOIN Taverns.Taverns t ON r.TavernId = t.Id
 
-WHERE s.Rate > @min AND s.Rate < @max
+WHERE r.Price > @min AND r.Price < @max
 );
 
 
@@ -81,9 +81,11 @@ AS
 
 SET NOCOUNT ON
 DECLARE @min_tav_id AS INT
-DECLARE @min_tav_price AS INT
+DECLARE @min_tav_price AS DECIMAL(18,2)
 
-SELECT @min_tav_id = p.Tavern_Id, @min_tav_price = p.Rate FROM Taverns.GetPriceRange(0, 5000) p;
+SELECT @min_tav_id = p.Tavern_Id, @min_tav_price = p.Price FROM Taverns.GetPriceRange(0, 5000) p;
+
+SELECT @min_tav_id, @min_tav_price
 
 DECLARE @new_min_id AS INT
 DECLARE @new_min_price AS decimal(18,2)
@@ -92,7 +94,7 @@ SET @new_min_price = @min_tav_price - .01
 
 SELECT @new_min_price
 
-SELECT t.Id FROM Taverns.Taverns t WHERE t.Id != @min_tav_id ORDER BY NEWID()
+SET @new_min_id = (SELECT TOP 1 t.Id FROM Taverns.Taverns t WHERE t.Id != @min_tav_id ORDER BY Id)
 
 INSERT INTO Taverns.Rooms(Name, StatusId, TavernId, price) VALUES ('New Room', 2, @new_min_id, @new_min_price)
 
